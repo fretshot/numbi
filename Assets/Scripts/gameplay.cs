@@ -1,18 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class gameplay : MonoBehaviour{
 
-    public List<int> numeros;
-
+    private List<int> numeros;
     private int score = 0;
     //private int maxScore = 0;
     public Text text_score;
     //public Text text_maxScore;
+    float time;
 
     void Start(){
+        
         numeros = new List<int>();
         NotificationCenter.DefaultCenter().AddObserver(this, "agregar");
         
@@ -22,11 +24,10 @@ public class gameplay : MonoBehaviour{
         }
     }
 
-    void agregar(Notification notification) {
-        numeros.Add((int)notification.data);
-    }
-
     private void Update() {
+
+        stopWatch();
+
         if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0)) {
             if (numeros.Contains(0)) {
                 Destroy(GameObject.FindGameObjectWithTag("num0"));
@@ -151,5 +152,21 @@ public class gameplay : MonoBehaviour{
                 Debug.Break();
             }
         }
+    }
+
+    private void stopWatch() {
+        time += Time.deltaTime;
+        time = time * 0.01f;
+        string hours = Mathf.Floor((time % 216000) / 3600).ToString("00");
+        string minutes = Mathf.Floor((time % 3600) / 60).ToString("00");
+        string seconds = (time % 60).ToString("00");
+        string text = hours + ":" + minutes + ":" + seconds;
+        if (numeros.Count!=0) { //Check if list is empty
+            NotificationCenter.DefaultCenter().PostNotification(this, "increaseSpeed", time);
+        }
+    }
+
+    void agregar(Notification notification) {
+        numeros.Add((int)notification.data);
     }
 }
