@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5517032720662109159}
   - component: {fileID: 3854253296446364131}
   - component: {fileID: 1559580377591365843}
+  - component: {fileID: 2177091728703176986}
   m_Layer: 0
   m_Name: hud5
   m_TagString: num5
@@ -93,7 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49bb3ec40e677a439e93ee0dec61152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
 --- !u!50 &1559580377591365843
 Rigidbody2D:
   serializedVersion: 4
@@ -115,3 +115,39 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &2177091728703176986
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958833004588237552}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.24, y: 0.26}
+      - {x: 0.19, y: 0.31}
+      - {x: -0.22, y: 0.31}
+      - {x: -0.29, y: 0.28}
+      - {x: -0.29, y: -0.32}
+      - {x: -0.17999999, y: -0.39999998}
+      - {x: -0.14, y: -0.41}
+      - {x: 0.099999994, y: -0.41}
+      - {x: 0.22999999, y: -0.31}
+      - {x: 0.26, y: -0.16}
+      - {x: 0.26, y: 0.13}
