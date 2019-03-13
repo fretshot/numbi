@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class collider : MonoBehaviour{
 
+    public Camera failCamera;
+    public Camera mainCamera;
+
     void OnTriggerEnter2D(Collider2D other){
         Destroy(other.gameObject);
-        Debug.Break();
-        // El usuario pierde
-    } 
+        NotificationCenter.DefaultCenter().PostNotification(this, "stopGenerator");
+        NotificationCenter.DefaultCenter().PostNotification(this, "playerLost");
+        Time.timeScale = 0;
+    }
+
 }

@@ -11,6 +11,7 @@ public class number_generator : MonoBehaviour {
 
     private void Start() {
         Invoke("Generar", Random.Range(tiempoMin, tiempoMax));
+        NotificationCenter.DefaultCenter().AddObserver(this, "stopGenerator");
     }
 
     void Generar() {
@@ -18,5 +19,9 @@ public class number_generator : MonoBehaviour {
         Instantiate(assets[numero], transform.position, Quaternion.identity);
         NotificationCenter.DefaultCenter().PostNotification(this, "agregar", numero);
         Invoke("Generar", Random.Range(tiempoMin, tiempoMax));
+    }
+
+    void stopGenerator(Notification notification) {
+        CancelInvoke();
     }
 }

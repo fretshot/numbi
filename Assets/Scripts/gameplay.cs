@@ -8,18 +8,26 @@ public class gameplay : MonoBehaviour{
 
     private List<int> numeros;
     private int score = 0;
-    //private int maxScore = 0;
+    private int maxScore = 0;
     public Text text_score;
     //public Text text_maxScore;
     float time;
 
+    public Camera failCamera;
+    public Camera mainCamera;
+
     void Start(){
+
         
+        mainCamera.enabled = true;
+        failCamera.enabled = false;
+
         numeros = new List<int>();
         NotificationCenter.DefaultCenter().AddObserver(this, "agregar");
-        
+        NotificationCenter.DefaultCenter().AddObserver(this, "playerLost");
+
         if (PlayerPrefs.HasKey("Maxscore")) {
-            //maxScore = PlayerPrefs.GetInt("Maxscore");
+            maxScore = PlayerPrefs.GetInt("Maxscore");
             //text_maxScore.text = maxScore.ToString();
         }
     }
@@ -36,9 +44,7 @@ public class gameplay : MonoBehaviour{
                 text_score.text = score.ToString();
                 
             } else {
-                PlayerPrefs.SetInt("Maxscore", score);
-                Debug.Break();
-                // Usuario preciona una tecla cuando no hay instancia. Pierde
+                playerLost();
             }
         }
 
@@ -49,9 +55,7 @@ public class gameplay : MonoBehaviour{
                 score += 1;
                 text_score.text = score.ToString();
             } else {
-                PlayerPrefs.SetInt("Maxscore", score);
-                Debug.Break();
-               
+                playerLost();
             }
         }
 
@@ -62,9 +66,7 @@ public class gameplay : MonoBehaviour{
                 score += 1;
                 text_score.text = score.ToString();
             } else {
-                PlayerPrefs.SetInt("Maxscore", score);
-                Debug.Break();
-                
+                playerLost();
             }
         }
 
@@ -75,8 +77,7 @@ public class gameplay : MonoBehaviour{
                 score += 1;
                 text_score.text = score.ToString();
             } else {
-                Debug.Break();
-                PlayerPrefs.SetInt("Maxscore", score);
+                playerLost();
             }
         }
 
@@ -87,8 +88,7 @@ public class gameplay : MonoBehaviour{
                 score += 1;
                 text_score.text = score.ToString();
             } else {
-                Debug.Break();
-                PlayerPrefs.SetInt("Maxscore", score);
+                playerLost();
             }
         }
 
@@ -99,9 +99,7 @@ public class gameplay : MonoBehaviour{
                 score += 1;
                 text_score.text = score.ToString();
             } else {
-                PlayerPrefs.SetInt("Maxscore", score);
-                Debug.Break();
-                
+                playerLost();
             }
         }
 
@@ -112,8 +110,7 @@ public class gameplay : MonoBehaviour{
                 score += 1;
                 text_score.text = score.ToString();
             } else {
-                PlayerPrefs.SetInt("Maxscore", score);
-                Debug.Break();
+                playerLost();
             }
         }
 
@@ -124,8 +121,7 @@ public class gameplay : MonoBehaviour{
                 score += 1;
                 text_score.text = score.ToString();
             } else {
-                PlayerPrefs.SetInt("Maxscore", score);
-                Debug.Break();
+                playerLost();
             }
         }
 
@@ -136,8 +132,7 @@ public class gameplay : MonoBehaviour{
                 score += 1;
                 text_score.text = score.ToString();
             } else {
-                PlayerPrefs.SetInt("Maxscore", score);
-                Debug.Break();
+                playerLost();
             }
         }
 
@@ -148,8 +143,7 @@ public class gameplay : MonoBehaviour{
                 score += 1;
                 text_score.text = score.ToString();
             } else {
-                PlayerPrefs.SetInt("Maxscore", score);
-                Debug.Break();
+                playerLost();
             }
         }
     }
@@ -168,5 +162,23 @@ public class gameplay : MonoBehaviour{
 
     void agregar(Notification notification) {
         numeros.Add((int)notification.data);
+    }
+
+
+    public void DeleteAll() {
+        foreach (GameObject o in FindObjectsOfType<GameObject>()) {
+            Destroy(o);
+        }
+    }
+
+    public void playerLost() {
+        failCamera.enabled = true;
+        mainCamera.enabled = false;
+        if (score > maxScore) {
+            PlayerPrefs.SetInt("Maxscore", score); // Guardamos la puntuacion maxima
+        }
+        NotificationCenter.DefaultCenter().PostNotification(this, "stopGenerator");
+        Debug.Log("Puntuación: " + score + " --- Record: " + maxScore);
+        Time.timeScale = 0;
     }
 }
