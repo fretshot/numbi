@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class number_movement : MonoBehaviour{
 
-    public static float speed = 3f;
+    public static float speed = 4f;
 
     private void Start() {
         NotificationCenter.DefaultCenter().AddObserver(this, "increaseSpeed");
@@ -18,5 +18,6 @@ public class number_movement : MonoBehaviour{
 
     void increaseSpeed(Notification notification) {
         speed = speed + (float)notification.data;
+        //Debug.Log(speed.ToString("0.00"));
     }
 }

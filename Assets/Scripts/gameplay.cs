@@ -9,7 +9,12 @@ public class gameplay : MonoBehaviour{
     private List<int> numeros;
     private int score = 0;
     private int maxScore = 0;
-    public Text text_score;
+    public Text txt_score;
+
+    public Text txt_score_lostScene;
+    public Text txt_maxScore_lostScene;
+    public Text txt_newRecord_lostScene;
+
     //public Text text_maxScore;
     float time;
 
@@ -21,6 +26,7 @@ public class gameplay : MonoBehaviour{
         
         mainCamera.enabled = true;
         failCamera.enabled = false;
+        txt_newRecord_lostScene.enabled = false;
 
         numeros = new List<int>();
         NotificationCenter.DefaultCenter().AddObserver(this, "agregar");
@@ -28,7 +34,6 @@ public class gameplay : MonoBehaviour{
 
         if (PlayerPrefs.HasKey("Maxscore")) {
             maxScore = PlayerPrefs.GetInt("Maxscore");
-            //text_maxScore.text = maxScore.ToString();
         }
     }
 
@@ -41,7 +46,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num0"));
                 numeros.Remove(0);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
                 
             } else {
                 playerLost();
@@ -53,7 +58,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num1"));
                 numeros.Remove(1);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
             } else {
                 playerLost();
             }
@@ -64,7 +69,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num2"));
                 numeros.Remove(2);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
             } else {
                 playerLost();
             }
@@ -75,7 +80,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num3"));
                 numeros.Remove(3);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
             } else {
                 playerLost();
             }
@@ -86,7 +91,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num4"));
                 numeros.Remove(4);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
             } else {
                 playerLost();
             }
@@ -97,7 +102,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num5"));
                 numeros.Remove(5);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
             } else {
                 playerLost();
             }
@@ -108,7 +113,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num6"));
                 numeros.Remove(6);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
             } else {
                 playerLost();
             }
@@ -119,7 +124,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num7"));
                 numeros.Remove(7);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
             } else {
                 playerLost();
             }
@@ -130,7 +135,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num8"));
                 numeros.Remove(8);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
             } else {
                 playerLost();
             }
@@ -141,7 +146,7 @@ public class gameplay : MonoBehaviour{
                 Destroy(GameObject.FindGameObjectWithTag("num9"));
                 numeros.Remove(9);
                 score += 1;
-                text_score.text = score.ToString();
+                txt_score.text = score.ToString();
             } else {
                 playerLost();
             }
@@ -176,9 +181,17 @@ public class gameplay : MonoBehaviour{
         mainCamera.enabled = false;
         if (score > maxScore) {
             PlayerPrefs.SetInt("Maxscore", score); // Guardamos la puntuacion maxima
+            txt_newRecord_lostScene.enabled = true;
+        } else {
+            txt_newRecord_lostScene.enabled = false;
         }
         NotificationCenter.DefaultCenter().PostNotification(this, "stopGenerator");
-        Debug.Log("Puntuación: " + score + " --- Record: " + maxScore);
+        //Debug.Log("Puntuación: " + score + " --- Record: " + maxScore);
         Time.timeScale = 0;
+        txt_maxScore_lostScene.text = "Best Score: "+maxScore.ToString();
+        txt_score_lostScene.text = "Your Score: " + score.ToString();
+        number_movement.speed = 4f;
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.volume = 0.05f;
     }
 }

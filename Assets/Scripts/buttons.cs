@@ -9,4 +9,12 @@ public class buttons : MonoBehaviour{
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void btn_resetMaxScore() {
+        PlayerPrefs.SetInt("Maxscore", 0);
+    }
+
+    public void btn_exit() {
+        Application.Quit();
+    }
 }
