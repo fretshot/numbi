@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class buttons : MonoBehaviour{
 
-    public void btn_playAgain() {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    public void btn_play() {
+        SceneManager.LoadScene("01");
+    }
+
+    public void btn_mainMenu() {
+        SceneManager.LoadScene("00");
     }
 
     public void btn_resetMaxScore() {

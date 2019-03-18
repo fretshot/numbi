@@ -187,7 +187,6 @@ public class gameplay : MonoBehaviour{
         }
         NotificationCenter.DefaultCenter().PostNotification(this, "stopGenerator");
         //Debug.Log("Puntuación: " + score + " --- Record: " + maxScore);
-        Time.timeScale = 0;
         txt_maxScore_lostScene.text = "Best Score: "+maxScore.ToString();
         txt_score_lostScene.text = "Your Score: " + score.ToString();
         number_movement.speed = 4f;

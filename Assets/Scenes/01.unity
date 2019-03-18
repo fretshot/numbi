@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 18099256}
   - component: {fileID: 18099258}
   - component: {fileID: 18099257}
+  - component: {fileID: 18099259}
   m_Layer: 0
   m_Name: txt_banner1
   m_TagString: Untagged
@@ -191,6 +192,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18099255}
   m_CullTransparentMesh: 0
+--- !u!111 &18099259
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18099255}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 7fc1dcc7bd846cd40aaa27ce011ef8b3, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 7fc1dcc7bd846cd40aaa27ce011ef8b3, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &159504233
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +367,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 994583649}
-        m_MethodName: btn_playAgain
+        m_MethodName: btn_exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -491,7 +508,7 @@ GameObject:
   m_Layer: 0
   m_Name: spot1 (1)
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -773,7 +790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 144}
+  m_AnchoredPosition: {x: 0, y: 160}
   m_SizeDelta: {x: 350, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &610865989
@@ -1548,7 +1565,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 994583649}
-        m_MethodName: btn_playAgain
+        m_MethodName: btn_mainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1676,7 +1693,7 @@ GameObject:
   m_Layer: 0
   m_Name: spot1 (0)
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1732,7 +1749,7 @@ GameObject:
   m_Layer: 0
   m_Name: spot1 (4)
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1788,7 +1805,7 @@ GameObject:
   m_Layer: 0
   m_Name: spot1 (3)
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1923,7 +1940,7 @@ GameObject:
   m_Layer: 0
   m_Name: spot1 (2)
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

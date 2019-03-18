@@ -11,7 +11,6 @@ public class collider : MonoBehaviour{
         Destroy(other.gameObject);
         NotificationCenter.DefaultCenter().PostNotification(this, "stopGenerator");
         NotificationCenter.DefaultCenter().PostNotification(this, "playerLost");
-        Time.timeScale = 0;
     }
 
 }
