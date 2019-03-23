@@ -9,7 +9,6 @@ public class collider : MonoBehaviour{
 
     void OnTriggerEnter2D(Collider2D other){
         Destroy(other.gameObject);
-        NotificationCenter.DefaultCenter().PostNotification(this, "stopGenerator");
         NotificationCenter.DefaultCenter().PostNotification(this, "playerLost");
     }
 

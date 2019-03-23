@@ -6,24 +6,36 @@ using UnityEngine.UI;
 
 public class gameplay : MonoBehaviour{
 
+    public GameObject[] uiLives;
+
     private List<int> numeros;
+
     private int score = 0;
     private int maxScore = 0;
-    public Text txt_score;
 
+    public Text txt_score;
     public Text txt_score_lostScene;
     public Text txt_maxScore_lostScene;
     public Text txt_newRecord_lostScene;
 
-    //public Text text_maxScore;
+    private AudioSource sourceMusic;
+
     float time;
+    private int lives;
 
     public Camera failCamera;
     public Camera mainCamera;
 
     void Start(){
+        lives = 3;
+        sourceMusic = GetComponent<AudioSource>();
 
-        
+        if (PlayerPrefs.HasKey("MusicVolume")) {
+            sourceMusic.volume = PlayerPrefs.GetFloat("MusicVolume");
+        } else {
+            sourceMusic.volume = 1f;
+        }
+
         mainCamera.enabled = true;
         failCamera.enabled = false;
         txt_newRecord_lostScene.enabled = false;
@@ -160,7 +172,7 @@ public class gameplay : MonoBehaviour{
         string minutes = Mathf.Floor((time % 3600) / 60).ToString("00");
         string seconds = (time % 60).ToString("00");
         string text = hours + ":" + minutes + ":" + seconds;
-        if (numeros.Count!=0) { //Check if list is empty
+        if (!numeros.Count.Equals(0)) { //Check if list is empty
             NotificationCenter.DefaultCenter().PostNotification(this, "increaseSpeed", time);
         }
     }
@@ -177,20 +189,36 @@ public class gameplay : MonoBehaviour{
     }
 
     public void playerLost() {
-        failCamera.enabled = true;
-        mainCamera.enabled = false;
-        if (score > maxScore) {
-            PlayerPrefs.SetInt("Maxscore", score); // Guardamos la puntuacion maxima
-            txt_newRecord_lostScene.enabled = true;
-        } else {
-            txt_newRecord_lostScene.enabled = false;
+
+        lives = lives - 1;
+        
+
+        switch (lives) {
+            case 0:
+                failCamera.enabled = true;
+                mainCamera.enabled = false;
+                if (score > maxScore) {
+                    PlayerPrefs.SetInt("Maxscore", score); // Guardamos la puntuacion maxima
+                    txt_newRecord_lostScene.enabled = true;
+                } else {
+                    txt_newRecord_lostScene.enabled = false;
+                }
+                NotificationCenter.DefaultCenter().PostNotification(this, "stopGenerator");
+                //Debug.Log("Puntuación: " + score + " --- Record: " + maxScore);
+                txt_maxScore_lostScene.text = "Best Score: " + maxScore.ToString();
+                txt_score_lostScene.text = "Your Score: " + score.ToString();
+                number_movement.speed = 4f;
+                sourceMusic.volume = 0.0f;
+                break;
+            case 1:
+                uiLives[1].SetActive(false);
+                break;
+            case 2:
+                uiLives[2].SetActive(false);
+                break;
         }
-        NotificationCenter.DefaultCenter().PostNotification(this, "stopGenerator");
-        //Debug.Log("Puntuación: " + score + " --- Record: " + maxScore);
-        txt_maxScore_lostScene.text = "Best Score: "+maxScore.ToString();
-        txt_score_lostScene.text = "Your Score: " + score.ToString();
-        number_movement.speed = 4f;
-        AudioSource audio = GetComponent<AudioSource>();
-        audio.volume = 0.05f;
+
+
+       
     }
 }

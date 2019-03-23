@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5517032720662109159}
   - component: {fileID: 3854253296446364131}
   - component: {fileID: 1559580377591365843}
-  - component: {fileID: 2177091728703176986}
+  - component: {fileID: 7720541031418896174}
   m_Layer: 0
   m_Name: hud5
   m_TagString: num5
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5ff76feaf28d5644b9e916d5b262961e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: abd5eb3ff5e20b945ba9d05ffa659e05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -115,7 +115,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &2177091728703176986
+--- !u!60 &7720541031418896174
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,14 +140,23 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.24, y: 0.26}
-      - {x: 0.19, y: 0.31}
-      - {x: -0.22, y: 0.31}
-      - {x: -0.29, y: 0.28}
-      - {x: -0.29, y: -0.32}
-      - {x: -0.17999999, y: -0.39999998}
-      - {x: -0.14, y: -0.41}
-      - {x: 0.099999994, y: -0.41}
-      - {x: 0.22999999, y: -0.31}
-      - {x: 0.26, y: -0.16}
-      - {x: 0.26, y: 0.13}
+    - - {x: -0.089999996, y: 0.19}
+      - {x: -0.14999999, y: 0.17999999}
+      - {x: -0.17, y: 0.26}
+      - {x: 0.32, y: 0.26}
+      - {x: 0.35999998, y: 0.29}
+      - {x: 0.35999998, y: 0.45999998}
+      - {x: -0.35, y: 0.45999998}
+      - {x: -0.35999998, y: 0.42}
+      - {x: -0.35999998, y: -0.089999996}
+      - {x: -0.32999998, y: -0.12}
+      - {x: -0.17999999, y: -0.13}
+      - {x: -0.34, y: -0.13}
+      - {x: -0.35999998, y: -0.14999999}
+      - {x: -0.35999998, y: -0.26}
+      - {x: -0.34, y: -0.35}
+      - {x: -0.17999999, y: -0.45}
+      - {x: 0.25, y: -0.45}
+      - {x: 0.35999998, y: -0.32999998}
+      - {x: 0.35999998, y: 0.07}
+      - {x: 0.16, y: 0.24}
