@@ -19,6 +19,8 @@ public class gameplay : MonoBehaviour{
     public Text txt_newRecord_lostScene;
 
     private AudioSource sourceMusic;
+    public AudioSource lostSound;
+    public AudioSource getPointsSound;
 
     float time;
     private int lives;
@@ -59,7 +61,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(0);
                 score += 1;
                 txt_score.text = score.ToString();
-                
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -71,6 +73,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(1);
                 score += 1;
                 txt_score.text = score.ToString();
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -82,6 +85,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(2);
                 score += 1;
                 txt_score.text = score.ToString();
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -93,6 +97,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(3);
                 score += 1;
                 txt_score.text = score.ToString();
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -104,6 +109,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(4);
                 score += 1;
                 txt_score.text = score.ToString();
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -115,6 +121,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(5);
                 score += 1;
                 txt_score.text = score.ToString();
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -126,6 +133,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(6);
                 score += 1;
                 txt_score.text = score.ToString();
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -137,6 +145,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(7);
                 score += 1;
                 txt_score.text = score.ToString();
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -148,6 +157,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(8);
                 score += 1;
                 txt_score.text = score.ToString();
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -159,6 +169,7 @@ public class gameplay : MonoBehaviour{
                 numeros.Remove(9);
                 score += 1;
                 txt_score.text = score.ToString();
+                getPointsSound.Play();
             } else {
                 playerLost();
             }
@@ -191,7 +202,6 @@ public class gameplay : MonoBehaviour{
     public void playerLost() {
 
         lives = lives - 1;
-        
 
         switch (lives) {
             case 0:
@@ -209,6 +219,7 @@ public class gameplay : MonoBehaviour{
                 txt_score_lostScene.text = "Your Score: " + score.ToString();
                 number_movement.speed = 4f;
                 sourceMusic.volume = 0.0f;
+                lostSound.Play();
                 break;
             case 1:
                 uiLives[1].SetActive(false);
