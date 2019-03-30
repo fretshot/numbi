@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,14 +14,16 @@ public class gameplay : MonoBehaviour{
     private int score = 0;
     private int maxScore = 0;
 
-    public Text txt_score;
-    public Text txt_score_lostScene;
-    public Text txt_maxScore_lostScene;
-    public Text txt_newRecord_lostScene;
+    public TextMeshProUGUI txt_score;
+    public TextMeshProUGUI txt_yourScore;
+    public TextMeshProUGUI txt_maxScore;
+    public TextMeshProUGUI txt_newRecord;
 
     private AudioSource sourceMusic;
     public AudioSource lostSound;
     public AudioSource getPointsSound;
+    public AudioSource lostLiveSound;
+    public AudioSource newRecordSound;
 
     float time;
     private int lives;
@@ -29,6 +32,7 @@ public class gameplay : MonoBehaviour{
     public Camera mainCamera;
 
     void Start(){
+
         lives = 3;
         sourceMusic = GetComponent<AudioSource>();
 
@@ -40,7 +44,7 @@ public class gameplay : MonoBehaviour{
 
         mainCamera.enabled = true;
         failCamera.enabled = false;
-        txt_newRecord_lostScene.enabled = false;
+        txt_newRecord.enabled = false;
 
         numeros = new List<int>();
         NotificationCenter.DefaultCenter().AddObserver(this, "agregar");
@@ -209,23 +213,26 @@ public class gameplay : MonoBehaviour{
                 mainCamera.enabled = false;
                 if (score > maxScore) {
                     PlayerPrefs.SetInt("Maxscore", score); // Guardamos la puntuacion maxima
-                    txt_newRecord_lostScene.enabled = true;
+                    txt_newRecord.enabled = true;
+                    newRecordSound.Play();
                 } else {
-                    txt_newRecord_lostScene.enabled = false;
+                    txt_newRecord.enabled = false;
                 }
                 NotificationCenter.DefaultCenter().PostNotification(this, "stopGenerator");
                 //Debug.Log("Puntuación: " + score + " --- Record: " + maxScore);
-                txt_maxScore_lostScene.text = "Best Score: " + maxScore.ToString();
-                txt_score_lostScene.text = "Your Score: " + score.ToString();
+                txt_maxScore.text = "Max Score: " + maxScore.ToString();
+                txt_yourScore.text = "Your Score: " + score.ToString();
                 number_movement.speed = 4f;
                 sourceMusic.volume = 0.0f;
                 lostSound.Play();
                 break;
             case 1:
                 uiLives[1].SetActive(false);
+                lostLiveSound.Play();
                 break;
             case 2:
                 uiLives[2].SetActive(false);
+                lostLiveSound.Play();
                 break;
         }
 
