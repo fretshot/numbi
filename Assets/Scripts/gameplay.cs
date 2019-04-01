@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class gameplay : MonoBehaviour{
+public class gameplay : MonoBehaviour {
 
     public GameObject[] uiLives;
 
@@ -27,12 +28,15 @@ public class gameplay : MonoBehaviour{
 
     float time;
     private int lives;
+    private bool playerIsDead = false;
 
     public Camera failCamera;
     public Camera mainCamera;
+    public GameObject lostLiveCamera;
 
     void Start(){
 
+        playerIsDead = false;
         lives = 3;
         sourceMusic = GetComponent<AudioSource>();
 
@@ -43,6 +47,7 @@ public class gameplay : MonoBehaviour{
         }
 
         mainCamera.enabled = true;
+        lostLiveCamera.SetActive(false);
         failCamera.enabled = false;
         txt_newRecord.enabled = false;
 
@@ -178,6 +183,18 @@ public class gameplay : MonoBehaviour{
                 playerLost();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.KeypadEnter)){
+            if (playerIsDead == true) {
+                SceneManager.LoadScene("01");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (playerIsDead == true) {
+                SceneManager.LoadScene("00");
+            }
+        }
     }
 
     private void stopWatch() {
@@ -206,6 +223,7 @@ public class gameplay : MonoBehaviour{
     public void playerLost() {
 
         lives = lives - 1;
+        playerIsDead = true;
 
         switch (lives) {
             case 0:
@@ -225,18 +243,26 @@ public class gameplay : MonoBehaviour{
                 number_movement.speed = 4f;
                 sourceMusic.volume = 0.0f;
                 lostSound.Play();
+                lostLiveSound.Play();
+                lostLiveCamera.SetActive(true);
+                Invoke("disableLostLiveCamera", 0.5f);
                 break;
             case 1:
                 uiLives[1].SetActive(false);
                 lostLiveSound.Play();
+                lostLiveCamera.SetActive(true);
+                Invoke("disableLostLiveCamera", 0.5f);
                 break;
             case 2:
                 uiLives[2].SetActive(false);
                 lostLiveSound.Play();
+                lostLiveCamera.SetActive(true);
+                Invoke("disableLostLiveCamera", 0.25f);
                 break;
         }
+    }
 
-
-       
+    public void disableLostLiveCamera() {
+        lostLiveCamera.SetActive(false);
     }
 }

@@ -6,8 +6,8 @@ using UnityEngine;
 public class number_generator : MonoBehaviour {
 
     public GameObject[] assets;
-    public float tiempoMin = 6f;
-    public float tiempoMax = 3f;
+    public float tiempoMin = 2f;
+    public float tiempoMax = 6f;
 
     private void Start() {
         Invoke("Generar", Random.Range(tiempoMin, tiempoMax));
