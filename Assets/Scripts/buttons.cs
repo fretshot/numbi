@@ -20,4 +20,12 @@ public class buttons : MonoBehaviour{
     public void btn_exit() {
         Application.Quit();
     }
+
+    public void btn_resume() {
+        NotificationCenter.DefaultCenter().PostNotification(this, "resumeGameplay");
+    }
+
+    public void btn_pause() {
+        NotificationCenter.DefaultCenter().PostNotification(this, "pauseGameplay");
+    }
 }

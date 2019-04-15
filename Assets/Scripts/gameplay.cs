@@ -30,9 +30,10 @@ public class gameplay : MonoBehaviour {
     private int lives;
     private bool playerIsDead = false;
 
-    public Camera failCamera;
+    public GameObject failCamera;
     public Camera mainCamera;
     public GameObject lostLiveCamera;
+    public GameObject pauseCamera;
 
     void Start(){
 
@@ -48,12 +49,15 @@ public class gameplay : MonoBehaviour {
 
         mainCamera.enabled = true;
         lostLiveCamera.SetActive(false);
-        failCamera.enabled = false;
+        failCamera.SetActive(false);
         txt_newRecord.enabled = false;
+        pauseCamera.SetActive(false);
 
         numeros = new List<int>();
         NotificationCenter.DefaultCenter().AddObserver(this, "agregar");
         NotificationCenter.DefaultCenter().AddObserver(this, "playerLost");
+        NotificationCenter.DefaultCenter().AddObserver(this, "resumeGameplay");
+        NotificationCenter.DefaultCenter().AddObserver(this, "pauseGameplay");
 
         if (PlayerPrefs.HasKey("Maxscore")) {
             maxScore = PlayerPrefs.GetInt("Maxscore");
@@ -184,7 +188,7 @@ public class gameplay : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.KeypadEnter)){
+        if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)){
             if (playerIsDead == true) {
                 SceneManager.LoadScene("01");
             }
@@ -193,6 +197,13 @@ public class gameplay : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (playerIsDead == true) {
                 SceneManager.LoadScene("00");
+            } else {
+                if (Time.timeScale == 1) {
+                    NotificationCenter.DefaultCenter().PostNotification(this, "pauseGameplay");
+                } else {
+                    NotificationCenter.DefaultCenter().PostNotification(this, "resumeGameplay");
+                }
+                
             }
         }
     }
@@ -227,12 +238,12 @@ public class gameplay : MonoBehaviour {
 
         switch (lives) {
             case 0:
-                failCamera.enabled = true;
+                failCamera.SetActive(true);
                 mainCamera.enabled = false;
                 if (score > maxScore) {
                     PlayerPrefs.SetInt("Maxscore", score); // Guardamos la puntuacion maxima
                     txt_newRecord.enabled = true;
-                    newRecordSound.Play();
+                    Invoke("activateSoundMaxScore", 2f);
                 } else {
                     txt_newRecord.enabled = false;
                 }
@@ -240,29 +251,53 @@ public class gameplay : MonoBehaviour {
                 //Debug.Log("Puntuación: " + score + " --- Record: " + maxScore);
                 txt_maxScore.text = "Max Score: " + maxScore.ToString();
                 txt_yourScore.text = "Your Score: " + score.ToString();
-                number_movement.speed = 4f;
+                number_movement.speed = 5f;
                 sourceMusic.volume = 0.0f;
                 lostSound.Play();
                 lostLiveSound.Play();
                 lostLiveCamera.SetActive(true);
                 Invoke("disableLostLiveCamera", 0.5f);
                 break;
+
             case 1:
                 uiLives[1].SetActive(false);
                 lostLiveSound.Play();
                 lostLiveCamera.SetActive(true);
                 Invoke("disableLostLiveCamera", 0.5f);
+                playerIsDead = false;
                 break;
+
             case 2:
                 uiLives[2].SetActive(false);
                 lostLiveSound.Play();
                 lostLiveCamera.SetActive(true);
                 Invoke("disableLostLiveCamera", 0.25f);
+                playerIsDead = false;
                 break;
         }
     }
 
     public void disableLostLiveCamera() {
-        lostLiveCamera.SetActive(false);
+        lostLiveCamera.SetActive(false);        
+    }
+
+    public void activateSoundMaxScore() {
+        newRecordSound.Play();
+    }
+
+    void resumeGameplay(Notification notification) {
+        pauseCamera.SetActive(false);
+        Time.timeScale = 1;
+        sourceMusic.volume = PlayerPrefs.GetFloat("MusicVolume");
+    }
+
+    void pauseGameplay(Notification notification) {
+        pauseCamera.SetActive(true);
+        Time.timeScale = 0;
+        if (PlayerPrefs.GetFloat("MusicVolume") < 0.1f) {
+            sourceMusic.volume = 0.05f;
+        } else {
+            sourceMusic.volume = 0f;
+        }
     }
 }
